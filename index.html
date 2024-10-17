@@ -4,7 +4,23 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>To do app</title>
+    <script
+      src="https://kit.fontawesome.com/ce43e31ae7.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="styles.css" />
   </head>
-  <body></body>
+  <body>
+    <div class="container">
+      <div id="add-task-container">
+        <form action="">
+          <input type="text" id="input-task" placeholder="Enter task" />
+          <textarea id="input-desc" placeholder="Enter description"></textarea>
+        </form>
+        <button id="add-task">add</button>
+      </div>
+      <div id="task-list"></div>
+    </div>
+    <script src="index.js"></script>
+  </body>
 </html>
