@@ -11,6 +11,9 @@ if (storedTodo) {
   todoArray = JSON.parse(storedTodo);
 }
 
+let totalTasks = todoArray.length;
+let doneTasks = todoArray.filter((task) => task.done === true).length;
+
 // Function to add task elements to the DOM
 function addTaskToDOM(taskObj, taskIndex) {
   let task = document.createElement("div");
@@ -62,15 +65,31 @@ function addTaskToDOM(taskObj, taskIndex) {
   // Add task to the list
   taskList.appendChild(task);
 
+  // Update task name when edited
+  li.addEventListener("blur", function () {
+    todoArray[taskIndex].task = li.innerText;
+    localStorage.setItem("todoArray", JSON.stringify(todoArray)); // Update localStorage
+  });
+
+  // Update task description when edited
+  desc.addEventListener("blur", function () {
+    todoArray[taskIndex].desc = desc.innerText;
+    localStorage.setItem("todoArray", JSON.stringify(todoArray)); // Update localStorage
+  });
+
   // Check button functionality
   checkButton.addEventListener("click", function () {
     todoArray[taskIndex].done = !todoArray[taskIndex].done;
     if (todoArray[taskIndex].done) {
       checkButton.parentElement.style.textDecoration = "line-through";
       checkButton.classList.add("checked");
+      doneTasks++;
+      done.innerText = `${doneTasks}`;
     } else {
       checkButton.parentElement.style.textDecoration = "";
       checkButton.classList.remove("checked");
+      doneTasks--;
+      done.innerText = `${doneTasks}`;
     }
     // Update local storage
     localStorage.setItem("todoArray", JSON.stringify(todoArray));
@@ -80,7 +99,13 @@ function addTaskToDOM(taskObj, taskIndex) {
   deleteButton.addEventListener("click", function () {
     task.remove(); // Remove task from DOM
     todoArray.splice(taskIndex, 1); // Remove task from array
-    localStorage.setItem("todoArray", JSON.stringify(todoArray)); // Update localStorage
+    localStorage.setItem("todoArray", JSON.stringify(todoArray)); // Update local storage
+    totalTasks--;
+    total.innerText = `${totalTasks}`;
+    if (taskObj.done) {
+      doneTasks--;
+      done.innerText = `${doneTasks}`;
+    }
   });
 
   // Show/hide description functionality
@@ -100,6 +125,15 @@ todoArray.forEach((taskObj, index) => {
   addTaskToDOM(taskObj, index);
 });
 
+// count total tasks and tasks done
+totalTasks = todoArray.length;
+let total = document.getElementById("totalTasks");
+total.innerText = `${totalTasks}`;
+
+doneTasks = todoArray.filter((task) => task.done === true).length;
+let done = document.getElementById("doneTasks");
+done.innerText = `${doneTasks}`;
+
 // Add new task event listener
 addTask.addEventListener("click", function () {
   if (inputTask.value === "") {
@@ -117,10 +151,28 @@ addTask.addEventListener("click", function () {
   todoArray.push(todoItem);
   localStorage.setItem("todoArray", JSON.stringify(todoArray));
 
+  // Update total tasks
+  totalTasks++;
+  total.innerText = `${totalTasks}`;
+
   // Add to the DOM
   addTaskToDOM(todoItem, todoArray.length - 1);
 
   // Clear inputs
   inputTask.value = "";
   inputDesc.value = "";
+});
+
+// Save title to local storage
+const todoTitle = document.getElementById("todo-title");
+
+const savedTitle = localStorage.getItem("todoTitle");
+
+if (savedTitle) {
+  todoTitle.innerHTML = savedTitle;
+}
+
+// Add event listener to update title in localStorage when editing is done
+todoTitle.addEventListener("blur", function () {
+  localStorage.setItem("todoTitle", todoTitle.innerHTML);
 });
