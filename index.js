@@ -11,19 +11,21 @@ addTask.addEventListener("click", function () {
   taskHeader.classList.add("task");
 
   let taskDesc = document.createElement("div");
-  taskDesc.classList.add("task");
+  taskDesc.classList.add("taskDesc");
   taskDesc.classList.add("hidden");
 
   let li = document.createElement("li");
   li.innerText = `${inputTask.value}`;
+  li.contentEditable = true;
   taskHeader.appendChild(li);
 
   let desc = document.createElement("p");
   desc.innerText = `${inputDesc.value}`;
+  desc.contentEditable = true;
   taskDesc.appendChild(desc);
 
   let checkButton = document.createElement("button");
-  checkButton.innerHTML = '<i class="fa-solid fa-check"></i>';
+  checkButton.innerHTML = '<i class="fa-solid fa-check fa"></i>';
   checkButton.classList.add("checkTask");
   taskHeader.appendChild(checkButton);
 
@@ -46,13 +48,21 @@ addTask.addEventListener("click", function () {
     taskList.appendChild(task);
   }
 
-  inputTask.value == "";
-  inputDesc.value == "";
+  inputTask.value = "";
+  inputDesc.value = "";
 
+  // Check button
   checkButton.addEventListener("click", function () {
-    checkButton.parentElement.style.textDecoration = "line-through";
+    if (checkButton.classList.contains("checked")) {
+      checkButton.parentElement.style.textDecoration = "";
+      checkButton.classList.remove("checked");
+    } else {
+      checkButton.parentElement.style.textDecoration = "line-through";
+      checkButton.classList.add("checked");
+    }
   });
 
+  // Delete Button
   deleteButton.addEventListener("click", function (e) {
     let button = e.target.closest("button"); // Find the closest <button> element
     if (button) {
@@ -60,6 +70,7 @@ addTask.addEventListener("click", function () {
     }
   });
 
+  // Show details button
   showButton.addEventListener("click", function () {
     let desc = showButton.parentElement.nextElementSibling;
     if (desc.classList.contains("hidden")) {

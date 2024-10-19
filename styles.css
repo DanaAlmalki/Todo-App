@@ -1,12 +1,44 @@
 body {
   height: 100vh;
   display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 15px;
+  background-color: aliceblue;
+}
+
+/*header {
+  display: flex;
+  flex-direction: column;
+  width: max(25%, 300px);
+  display: flex;
+  align-items: start;
   justify-content: center;
-  align-items: center;
+}*/
+
+header p {
+  margin-top: -1em;
+}
+
+.container,
+header {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  column-gap: 10px;
+  width: 100%;
+}
+
+.left-container {
+  width: max(25%, 300px);
+  display: flex;
+}
+
+.right-container {
+  width: 70%;
 }
 
 #add-task-container {
-  width: 350px;
   padding: 20px 10px;
   background-color: white;
   border-radius: 20px;
@@ -55,10 +87,20 @@ textarea {
   display: flex;
 }
 
+.taskDesc {
+  flex: 4;
+  padding: 3px;
+  margin: 3px 10px;
+}
+
+p {
+  font-size: 1.2rem;
+}
+
 .task-container {
-  /*display: flex;
+  display: flex;
   flex-direction: column;
-  justify-content: center;*/
+  justify-content: center;
   width: 100%;
   background-color: white;
   border-radius: 10px;
@@ -71,26 +113,26 @@ textarea {
   list-style: none;
   flex: 4;
   padding: 5px;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   margin: 10px;
 }
 
 .task button {
-  flex: 1;
+  object-fit: scale-down;
   border-radius: 10px;
   background-color: white;
   cursor: pointer;
 }
 
 .task .checkTask {
-  color: orange;
+  color: green;
   margin-right: 5px;
-  border: solid 2px orange;
+  border: solid 2px green;
   font-size: 1.5rem;
 }
 
-.task .checkTask:hover {
-  background-color: orange;
+.task .checked {
+  background-color: green;
   color: white;
 }
 
@@ -108,16 +150,43 @@ textarea {
 
 .task .showTask {
   color: dodgerblue;
-  margin-right: 5px;
-  border: solid 2px dodgerblue;
+  border: 0;
   font-size: 1.5rem;
 }
 
-.task .showTask:hover {
-  background-color: dodgerblue;
+.task .editTask {
+  color: orange;
+  margin-right: 5px;
+  border: solid 2px orange;
+  font-size: 1.5rem;
+}
+
+.task .editTask:hover {
+  background-color: orange;
   color: white;
 }
 
 .hidden {
   display: none;
+}
+
+[contenteditable] {
+  padding: 0.25em 0em;
+  margin: 1em 0;
+  transition: padding 0.3s ease-in-out;
+}
+
+[contenteditable]:hover,
+[contenteditable]:focus {
+  padding: 0.25em;
+}
+
+[contenteditable]:hover {
+  background: #fafafa;
+  outline: 2px solid #eee;
+}
+
+[contenteditable]:focus {
+  background: #efefef;
+  outline: 2px solid blue;
 }
