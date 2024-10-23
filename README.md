@@ -1,4 +1,4 @@
-# Todo App
+# :memo::pencil: Todo App
 
 Try at: [Todo App](https://danaalmalki.github.io/sda-3-online-javascript-todo-app/)
 
